@@ -11,6 +11,8 @@ public class DamageCalculator {
     }
 
     public int calculateHealth(int currentHealth, int damageValue) {
+        if((currentHealth-damageValue)<0)
+            return 0;
         return currentHealth-damageValue;
     }
 }
