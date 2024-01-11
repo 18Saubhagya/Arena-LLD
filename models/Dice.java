@@ -10,10 +10,10 @@ public class Dice {
         diceCount=count;
     }
     public int getDiceCount() {
-        return diceCount;
+        return this.diceCount;
     }
     public void setDiceCount(int count) {
-        diceCount=count;
+        this.diceCount=count;
     }
 
     public int rollDice() {
