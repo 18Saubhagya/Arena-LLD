@@ -1,5 +1,6 @@
 import java.util.HashMap;
-import models.*;
+import models.Magic_Arena_Game;
+import models.Player;
 
 public class Magic_Arena_App {
 
@@ -10,7 +11,6 @@ public class Magic_Arena_App {
         Magic_Arena_Game newGame = new Magic_Arena_Game();
         newGame.setPlayers(players.get(playerA_Id), players.get(playerB_Id));
         newGame.setDice(1);
-        newGame.setDamage();
         newGame.startGame();
     } 
 

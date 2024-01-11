@@ -1,9 +1,13 @@
 package models;
 
+import helpers.Attack;
+import helpers.DamageCalculator;
+import helpers.Defense;
+import helpers.HealthCalculator;
+
 public class Magic_Arena_Game {
     private Player playerA, playerB;
     private Dice dice;
-    private DamageCalculator damage;
 
     public void setPlayers(Player playerA, Player playerB) {
         this.playerA=playerA;
@@ -12,10 +16,6 @@ public class Magic_Arena_Game {
 
     public void setDice(int diceCount) {
         dice = new Dice(diceCount);
-    }
-
-    public void setDamage() {
-        damage = new DamageCalculator();
     }
 
     private void displayWinner(Player winner, Player loser) {
@@ -27,13 +27,13 @@ public class Magic_Arena_Game {
     private int calculateTurn(Player attackPlayer, Player defensepPlayer) {
         int diceValue=dice.rollDice();
         System.out.println("Dice Rolled for attack: "+diceValue);
-        int attackValue=damage.calculateMoveValue(attackPlayer.getPlayerAttack(), diceValue);
+        int attackValue=Attack.calculateMoveValue(attackPlayer.getPlayerAttack(), diceValue);
 
         diceValue=dice.rollDice();
         System.out.println("Dice Rolled for defense: "+diceValue);
-        int defenseValue=damage.calculateMoveValue(defensepPlayer.getPlayerStrength(), diceValue);
+        int defenseValue=Defense.calculateMoveValue(defensepPlayer.getPlayerStrength(), diceValue);
 
-        int damageValue=damage.calculateDamage(attackValue, defenseValue);
+        int damageValue=DamageCalculator.calculateDamage(attackValue, defenseValue);
         return damageValue;
     }
 
@@ -41,36 +41,26 @@ public class Magic_Arena_Game {
         System.out.println("Game is getting started!!");
         System.out.println();
 
-        if(playerA.getPlayerHealth()==0 && playerB.getPlayerHealth()==0) {
-            System.out.println("Both players have 0 Health Points");
-            return;
-        }
-
-        //If both players have 0 Attack attribute, game will not end forever
-        if(playerA.getPlayerAttack()==0 && playerB.getPlayerAttack()==0) {
-            System.out.println("Both players have 0 Attack Points");
-            return;
-        }
-
         int turn=0; // 0 represents player A's chance while 1 represents player B's turn 
         if(playerA.getPlayerHealth() > playerB.getPlayerHealth())
             turn=1;
 
-        while(true)
+        int maxMove=1000;
+        while(maxMove>0)
         {
             //Player A turn
             if(turn==0)
             {
                 System.out.println(playerA.getPlayerName()+" Turn!");
                 int damageValue=calculateTurn(playerA, playerB);
-                playerB.setPlayerHealth(damage.calculateHealth(playerB.getPlayerHealth(),damageValue)); //Updating the health of B after defense
+                playerB.setPlayerHealth(HealthCalculator.calculateHealth(playerB.getPlayerHealth(),damageValue)); //Updating the health of B after defense
             }
             //Player B turn
             else
             {
                 System.out.println(playerB.getPlayerName()+" Turn!");
                 int damageValue=calculateTurn(playerB, playerA);
-                playerA.setPlayerHealth(damage.calculateHealth(playerA.getPlayerHealth(),damageValue)); //Updating the health of A after defense
+                playerA.setPlayerHealth(HealthCalculator.calculateHealth(playerA.getPlayerHealth(),damageValue)); //Updating the health of A after defense
             }
 
             System.out.println(playerA.getPlayerName() + " health after this turn: "+ playerA.getPlayerHealth());
@@ -87,6 +77,7 @@ public class Magic_Arena_Game {
                 return;
             }
             turn=1-turn;
+            --maxMove;
         }
     }
 }
