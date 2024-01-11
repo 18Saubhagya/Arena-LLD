@@ -20,7 +20,7 @@ public class Dice {
         int sum=0,currentCount=diceCount;
         while(currentCount>0)
         {
-            int diceNum=(int)Math.random()*6+1;
+            int diceNum=(int)(Math.random()*6+1);
             sum+=diceNum;
             --currentCount;
         }
