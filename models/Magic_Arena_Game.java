@@ -79,5 +79,6 @@ public class Magic_Arena_Game {
             turn=1-turn;
             --maxMove;
         }
+        System.out.println("No result after number of allowed moves");
     }
 }
