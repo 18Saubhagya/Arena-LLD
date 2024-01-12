@@ -3,8 +3,8 @@
 ## Project Setup
 ```bash
 # You can start the project with below commands after unzipping the folder
-javac Magical_Arena_App.java
-java Magical_Arena_App
+javac -cp . models/*.java main/*.java
+java -cp . main/Magical_Arena_App
 ```
 
 ## Problem Statement
