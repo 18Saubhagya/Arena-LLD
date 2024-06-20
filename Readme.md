@@ -1,7 +1,5 @@
 # Design Magical Arena with JAVA
 
-*The assessment was already submitted on 12th January, but was asked to resubmit*
-
 ## Project Setup
 ```bash
 # You can start the project with below commands after unzipping the folder
